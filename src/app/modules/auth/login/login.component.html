@@ -1,0 +1,38 @@
+<div class="wrapper-login">
+  <div class="login">
+    <div class="left-login">
+      <div class="left-login--header">
+        <img ngSrc="assets/images/login/logo.jpg" alt="" class="image-logo" height="3828" width="3828">
+      </div>
+      <div class="left-login--body">
+        <span class="description-login">
+          Hola!, Bienvenido de nuevo
+        </span>
+        <form class="grid" autocomplete="off" [formGroup]="loginForm">
+          <div class="col-12">
+            <div class="form-container">
+              <div class="form-group">
+                <label class="form-label" for="email">User</label>
+                <input id="email" type="text" appMessageErrors formControlName="user_email" placeholder="Nombre de usuario" class="form-input">
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-container">
+              <div class="form-group">
+                <label class="form-label" for="password">Contraseña</label>
+                <input id="password" type="password" appMessageErrors formControlName="user_password" placeholder="Contraseña" class="form-input">
+              </div>
+            </div>
+          </div>
+          <p class="new-user">¿Aún no tienes una cuenta? <span routerLink="/register">Crea una</span></p>
+          <div class="col-12">
+            <button class="btn" (click)="sendLoginAuth()">Iniciar sesión</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <img ngSrc="assets/images/login/foto-login-register.jpg" priority="" alt="" class="image-right-login" height="1500"
+         width="1130">
+  </div>
+</div>
