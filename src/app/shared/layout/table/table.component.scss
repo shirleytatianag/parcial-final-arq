@@ -36,7 +36,6 @@
           outline: none;
           border-radius: 4px;
           border: 1px solid theme-palette-color('grays', 200);
-          //font-family: $font-family;
           height: 40px;
           cursor: text;
         }
@@ -70,11 +69,9 @@
         justify-content: center;
         align-items: center;
         padding: 0 16px;
-        //margin-left: 10px;
         max-height: 40px;
         min-height: 40px;
         font-size: 14px;
-        //font-family: $font-family;
         color: white;
         border: none;
         cursor: pointer;
@@ -115,7 +112,8 @@
 
     th, td {
       padding: 8px;
-      border: 1px solid #ddd;
+      //border: 2px solid #ffccdd;
+      border-left: 2px solid #ff82ae;
       text-align: center;
       height: 40px;
       min-height: 40px;
@@ -127,9 +125,24 @@
     }
 
     th {
+      border: 2px solid #ff82ae;
+      font-weight: 500;
+    }
+
+
+    /* Estilo para las filas impares */
+    tr:nth-child(odd) {
+      background-color: #fcfcfc;
+    }
+
+    /* Estilo para las filas pares */
+    tr:nth-child(even) {
+      background-color: rgba(255, 204, 221, 0.4);
+    }
+
+    th {
       height: 50px;
       border-bottom: 2px solid theme-palette-color('color', 'primary');
-
     }
 
     thead {
@@ -151,6 +164,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  border-right: 2px solid #ff82ae;
 
   .btn-actions {
     width: 32px;

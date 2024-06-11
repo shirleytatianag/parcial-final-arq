@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CardComponent} from "@app/shared/layout/card/card.component";
 import {TableComponent} from "@app/shared/layout/table/table.component";
 import {TableActions, TableColumn} from "@app/shared/layout/interfaces/table-actions";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
@@ -12,7 +11,6 @@ import {LoadingService} from "@app/core/services/loading.service";
   selector: 'app-product',
   standalone: true,
   imports: [
-    CardComponent,
     TableComponent,
     MatDialogModule
   ],

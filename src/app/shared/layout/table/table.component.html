@@ -19,15 +19,23 @@
     <table>
       <thead>
       <tr>
-        <th>{{ rowActionName }}</th>
         @for (column of tableColumns; track $index) {
           <th>{{ column.name }}</th>
         }
+        <th>{{ rowActionName }}</th>
+
       </tr>
       </thead>
       <tbody>
         @if (tableData.length > 0) {
           <tr *ngFor="let element of tableData">
+
+
+            @for (tableColumn of tableColumns; track $index) {
+              <td>
+                {{ element | getterProperty: tableColumn.key }}
+              </td>
+            }
             <td class="container-buttons">
               @if (action.edit) {
                 <button (click)="editItem(element);"
@@ -42,12 +50,6 @@
                 </button>
               }
             </td>
-
-            @for (tableColumn of tableColumns; track $index) {
-              <td>
-                {{ element | getterProperty: tableColumn.key }}
-              </td>
-            }
           </tr>
         } @else {
           <td [colSpan]="tableColumns.length + 1">
