@@ -104,11 +104,14 @@
   //min-height: 500px;
   //max-height: 500px;
   height: 70vh;
-  background: white;
+  background: rgba(255, 130, 174, 0.10);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 
   table {
     width: 100%;
     border-collapse: collapse;
+    border-bottom: 2px solid #ff82ae;
 
     th, td {
       padding: 8px;

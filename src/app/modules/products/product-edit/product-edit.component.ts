@@ -63,17 +63,17 @@ export class ProductEditComponent implements OnInit {
           this.images = data.images;
         }
       }, error: () => {
-        this._alert.error("Al parecer ya borraron el producto. :((")
+        this._alert.error("Hubo un problema al intentar traer el producto. :((")
         this._loading.hide();
       }
     })
   }
 
   setDataProduct(data: any) {
-    this.productForm.get('title')?.setValue(data['title']);
-    this.productForm.get('price')?.setValue(data['price']);
-    this.productForm.get('description')?.setValue(data['description']);
-    this.productForm.get('categoryId')?.setValue(data['category']['id']);
+    this.productForm.get('title')?.setValue(data['product_name']);
+    this.productForm.get('price')?.setValue(data['product_price']);
+    this.productForm.get('description')?.setValue(data['product_detail']);
+    this.productForm.get('categoryId')?.setValue(data['category_id']);
   }
 
   changeScreen(screen: number) {
@@ -133,13 +133,13 @@ export class ProductEditComponent implements OnInit {
   }
 
   sendDataRegisterProduct() {
-    if (this.productForm.valid && this.images.length > 0) {
+    if (this.productForm.valid) {
       const dataProduct: any = {
-        title: this.productForm.get("title")?.value,
-        price: this.productForm.get("price")?.value,
-        description: this.productForm.get("description")?.value,
-        categoryId: this.productForm.get("categoryId")?.value,
-        images: this.images
+        product_name: this.productForm.get("title")?.value,
+        product_price: this.productForm.get("price")?.value,
+        product_detail: this.productForm.get("description")?.value,
+        category_id: this.productForm.get("categoryId")?.value,
+        product_image: 'fff'
       }
 
       const petition: Observable<any> = this.data ? this._product.updateProduct(this.data, dataProduct) :

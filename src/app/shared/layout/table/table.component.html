@@ -29,8 +29,6 @@
       <tbody>
         @if (tableData.length > 0) {
           <tr *ngFor="let element of tableData">
-
-
             @for (tableColumn of tableColumns; track $index) {
               <td>
                 {{ element | getterProperty: tableColumn.key }}

@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
   initForm(): void {
     this.loginForm = new FormGroup({
-      user_email: new FormControl('', [Validators.required, Validators.email]),
+      user_email: new FormControl('', [Validators.required]),
       user_password: new FormControl('', [Validators.required]),
     })
   }
@@ -56,18 +56,18 @@ export class LoginComponent implements OnInit {
       // john@mail.com
       // changeme
       const dataAuth: AuthLogin = {
-        email: this.loginForm.get('user_email')?.value,
+        username: this.loginForm.get('user_email')?.value,
         password: this.loginForm.get('user_password')?.value,
       }
       this._auth.login(dataAuth).subscribe({
         next: (data) => {
-          this._storage.setItem('access_token', data.access_token);
-          this._storage.setItem('refresh_token', data.refresh_token);
+          this._storage.setItem('access_token', data.token);
           this._router.navigateByUrl('administration/product').then();
           this._loading.hide();
         },
-        error: () =>{
-          this._alert.warning('Credenciales incorrectas')
+        error: (err) =>{
+          console.log(err)
+          this._alert.warning(err.error.msn)
           this._loading.hide();
         },
       })

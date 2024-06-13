@@ -13,27 +13,27 @@ export class ProductsService {
   }
 
   public getAllProducts(): Observable<any> {
-    return this._http.get<any>('https://api.escuelajs.co/api/v1/products');
+    return this._http.get<any>('http://localhost:1000/producto/');
   }
 
   public getProductById(productId: any): Observable<any> {
-    return this._http.get<any>('https://api.escuelajs.co/api/v1/products/' + productId)
+    return this._http.get<any>('http://localhost:1000/producto/' + productId)
   }
 
   public updateProduct(productId: any, data: any): Observable<any> {
-    return this._http.put<any>('https://api.escuelajs.co/api/v1/products/' + productId, data)
+    return this._http.put<any>('http://localhost:1000/producto/' + productId, data)
   }
 
   public saveProduct(data: any): Observable<any> {
-    return this._http.post<any>('https://api.escuelajs.co/api/v1/products/' , data)
+    return this._http.post<any>('http://localhost:1000/producto' , data)
   }
 
   public deleteProduct(productId: string): Observable<any> {
-    return this._http.delete<any>(`https://api.escuelajs.co/api/v1/products/${productId}`);
+    return this._http.delete<any>(`http://localhost:1000/producto/${productId}`);
   }
 
   //Category
   public getCategories(): Observable<any> {
-    return this._http.get<any>("https://api.escuelajs.co/api/v1/categories")
+    return this._http.get<any>("http://localhost:1000/category/")
   }
 }

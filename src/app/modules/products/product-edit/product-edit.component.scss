@@ -1,9 +1,10 @@
 @import "theme/theme";
 
 .wrapper-product-edit {
-  width: 500px;
+  width: 800px;
   //height: 472px;
   padding: 20px;
+
 
   .title-product {
     display: block;
@@ -22,6 +23,26 @@
     font-size: 14px;
     margin-block: 12px;
     font-weight: 350;
+  }
+
+  .form-and-image {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .grid {
+      width: 50%;
+    }
+
+    .image-of-form {
+      width: 50%;
+
+      img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+      }
+    }
   }
 
   .images-upload {

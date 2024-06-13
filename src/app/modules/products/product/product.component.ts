@@ -40,10 +40,10 @@ export class ProductComponent implements OnInit {
   };
 
   columnsTable: TableColumn[] = [
-    {name: 'Nombre', key: 'title', type: 'text'},
-    {name: 'Precio', key: 'price', type: 'text'},
-    {name: 'Descripción', key: 'description', type: 'text'},
-    {name: 'Categoria', key: 'category', type: 'text'},
+    {name: 'Nombre', key: 'product_name', type: 'text'},
+    {name: 'Precio', key: 'product_price', type: 'text'},
+    {name: 'Descripción', key: 'product_detail', type: 'text'},
+    {name: 'Categoria', key: 'category_name', type: 'text'},
   ];
 
   tableData: any = [];
@@ -61,21 +61,16 @@ export class ProductComponent implements OnInit {
     this._loading.show();
     this._product.getAllProducts().subscribe({
       next: (data) => {
-        this.tableData = data.map((item: any) => ({
-          title: item.title,
-          price: item.price,
-          description: item.description,
-          category: item.category.name,
-          id: item.id,
-        }));
+        this.tableData = data;
         this._loading.hide();
       },
     });
   }
 
   editProduct(value: any) {
+    console.log(value)
     const refDialog = this._dialog.open(ProductEditComponent, {
-      data: value.id,
+      data: value.product_id,
     });
     refDialog.afterClosed().subscribe((value) => {
       if (value) {
@@ -86,12 +81,16 @@ export class ProductComponent implements OnInit {
 
   deleteProduct(value: any) {
     this._loading.show();
-    this._product.deleteProduct(value.id).subscribe({
+    this._product.deleteProduct(value.product_id).subscribe({
       next: () => {
         this.getAllProduct();
-        this._loading.show();
+        this._loading.hide();
         this._alert.success('Producto eliminado exitosamente')
       },
+      error: (err)=>{
+        this._alert.warning(err.error)
+        this._loading.hide();
+      }
     });
   }
 

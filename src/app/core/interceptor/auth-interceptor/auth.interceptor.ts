@@ -16,10 +16,9 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const refresh_token = this._storage.getItem<string>('refresh_token');
     const access_token = this._storage.getItem<string>('access_token');
 
-    if (refresh_token && access_token) {
+    if (access_token) {
       request = AuthInterceptor.addTokenHeader(request, access_token);
     } else {
       // this._alertService.warning('Tiempo expirado, vuelve a iniciar sesión');

@@ -1,9 +1,10 @@
 export interface AuthLogin {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface AuthResponse {
-  access_token: string;
-  refresh_token: string;
+  success: string;
+  token: string;
+  msn: string;
 }
