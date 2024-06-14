@@ -30,7 +30,7 @@ export class ProductEditComponent implements OnInit {
 
   productForm: FormGroup = new FormGroup({})
   screen: number = 1;
-  images: string[] = [];
+  images: string = '';
 
   category: any = []
 
@@ -55,13 +55,10 @@ export class ProductEditComponent implements OnInit {
     this._loading.show();
     this._product.getProductById(id).subscribe({
       next: (data) => {
+        console.log(data)
         this.setDataProduct(data);
         this._loading.hide();
-        if (data.images[0].startsWith('["')) {
-          this.images = JSON.parse(data.images);
-        } else {
-          this.images = data.images;
-        }
+        this.images = data.product_image;
       }, error: () => {
         this._alert.error("Hubo un problema al intentar traer el producto. :((")
         this._loading.hide();
@@ -103,63 +100,53 @@ export class ProductEditComponent implements OnInit {
     })
   }
 
-
-  // "https://i.imgur.com/yb9UQKL.jpeg"
-  // "https://i.imgur.com/m2owtQG.jpeg"
-  // "https://i.imgur.com/bNiORct.jpeg"
-  // https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_640.jpg
-  pushImage() {
-    const img = this.productForm.get('images')?.value;
-    if (this.imageURLValidator({value: img} as FormControl) === null) {
-      this.productForm.get('images')?.setValue("");
-      this.images.push(img);
-    } else {
-      this.productForm.get('images')?.setValue("");
-      this._alert.error("Url no valida")
-    }
+  addImage(event: any): void {
+    const capturedFile = event.target.files[0];
+    this._product.converterToBase64(capturedFile).subscribe({
+      next: (base64data): void => {
+        this.images = base64data;
+        this._alert.success('Imagen subida correctamente');
+      },
+    });
   }
 
-  deleteImage(position: number) {
-    this.images.splice(position, 1);
+  deleteImage() {
+    this.images = '';
     this._alert.success("Imagen eliminado exitosamente")
   }
 
-  imageURLValidator(control: FormControl): { [key: string]: boolean } | null {
-    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?.(jpg|jpeg|png|gif|bmp)$/i;
-    if (!control.value || !urlPattern.test(control.value)) {
-      return {'invalidImageUrl': true};
-    }
-    return null;
-  }
-
   sendDataRegisterProduct() {
-    if (this.productForm.valid) {
+    this._loading.show();
+    if (this.productForm.valid && this.images) {
       const dataProduct: any = {
         product_name: this.productForm.get("title")?.value,
         product_price: this.productForm.get("price")?.value,
         product_detail: this.productForm.get("description")?.value,
         category_id: this.productForm.get("categoryId")?.value,
-        product_image: 'fff'
+        product_image: this.images
       }
 
       const petition: Observable<any> = this.data ? this._product.updateProduct(this.data, dataProduct) :
         this._product.saveProduct(dataProduct);
-
       petition.subscribe({
         next: () => {
           this.productForm.reset();
-          this.images = [];
+          this.images = '';
           this.data ?
             this._alert.success('Producto actualizado exitosamente') : this._alert.success('Producto registrado exitosamente')
           this._dialog.close(true);
+          this._loading.hide();
+
         },
-        error: () => {
+        error: (error) => {
           this.data ?
-            this._alert.error("Hubo un problema al actualizar el producto.") : this._alert.error("Hubo un problema al registrar el producto.")
+            this._alert.error(error.error.data) : this._alert.error("Hubo un problema al registrar el producto.");
+          this._loading.hide();
+
         }
       });
     } else {
-      this._alert.warning('Debes agregar mínimo una imagen')
+      this._alert.warning('Debes agregar una imagen')
     }
   }
 

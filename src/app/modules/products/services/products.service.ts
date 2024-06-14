@@ -36,4 +36,19 @@ export class ProductsService {
   public getCategories(): Observable<any> {
     return this._http.get<any>("http://localhost:1000/category/")
   }
+  public converterToBase64(file: File): Observable<any> {
+    return new Observable<string | ArrayBuffer | null>(observer => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        observer.next(fileReader.result);
+        observer.complete();
+      };
+      fileReader.onerror = error => {
+        observer.error(error);
+        observer.complete();
+      }
+    });
+  }
+
 }

@@ -4,7 +4,7 @@
     {{
       this.data ? '¡Hola! Puedes editar este producto para actualizar su información, cambiar el precio, modificar ' +
         'las imágenes o ajustar las descripciones fácilmente.' : '¡Hola! Agrega un nuevo producto fácilmente llenando la ' +
-        'información, subiendo imágenes y estableciendo el precio. ¡Es rápido y sencillo!'
+        'información, subiendo una imágen y estableciendo el precio. ¡Es rápido y sencillo!'
     }}
   </span>
   <div class="form-and-image">
@@ -60,21 +60,15 @@
           <button class="btn" (click)="changeScreen(2)">Siguiente</button>
         </div>
       } @else if (screen === 2) {
-        <div class="col-8 group-input-btn">
-          <div class="form-container input">
-            <div class="form-group">
-              <label class="form-label" for="imageUrl">Url de la imagen</label>
-              <input id="imageUrl" type="text" appTrim appMessageErrors formControlName="images"
-                     placeholder="Ingrese la Url de la imagen" class="form-input">
-            </div>
+          <div class="container-upload-image" (change)="addImage($event)">
+              <label for="add-image">Sube tu imágen aquí</label>
+              <input id="add-image" type="file">
           </div>
-          <button (click)="pushImage()" class="btn btn-submit"><em class="icon-plus"></em></button>
-        </div>
         <div class="images-upload">
-          @for (image of images; track $index) {
+          @if (images) {
             <div class="image-product">
-              <img src="{{image}}" alt="image-{{$index}}-product">
-              <em class="icon-trash absolute-trash" (click)="deleteImage($index)"></em>
+              <img src="{{images}}" alt="image-product">
+              <em class="icon-trash absolute-trash" (click)="deleteImage()"></em>
             </div>
           }
         </div>
@@ -86,8 +80,14 @@
         </div>
       }
     </form>
-    <div class="image-of-form">
-      <img src="assets/images/add-product.png" alt="foto login">
-    </div>
+    @if (screen == 1){
+      <div class="image-of-form">
+        <img src="assets/images/product.png" alt="foto form 1">
+      </div>
+    } @else if (screen == 2){
+      <div class="image-of-form">
+        <img src="assets/images/no-images-uploads.png" alt="foto form 2">
+      </div>
+    }
   </div>
 </div>

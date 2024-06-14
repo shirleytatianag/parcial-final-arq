@@ -48,7 +48,7 @@ export class ProductComponent implements OnInit {
 
   tableData: any = [];
 
-  addProduct(value: any) {
+  addProduct() {
     const refDialog = this._dialog.open(ProductEditComponent, {});
     refDialog.afterClosed().subscribe((value) => {
       if (value) {
@@ -68,7 +68,6 @@ export class ProductComponent implements OnInit {
   }
 
   editProduct(value: any) {
-    console.log(value)
     const refDialog = this._dialog.open(ProductEditComponent, {
       data: value.product_id,
     });
