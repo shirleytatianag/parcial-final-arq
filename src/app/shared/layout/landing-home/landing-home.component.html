@@ -9,11 +9,11 @@
     @for (product of products; track $index){
       <div class="product">
         <div class="images">
-          <img [src]="product.images[0]" alt="imagen de la card"/>
+          <img [src]="product.product_image" alt="imagen de la card"/>
         </div>
         <div class="info-product">
-          <span class="title">{{ product.title | titlecase }}</span>
-          <p class="price">$ {{ product.price  }}</p>
+          <span class="title">{{ product.product_name | titlecase }}</span>
+          <p class="price">$ {{ product.product_price  }}</p>
         </div>
       </div>
     }
