@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const access_token = this._storage.getItem<string>('access_token');
 
-    if (request.url === 'https://api.escuelajs.co/api/v1/auth/login') {
+    if (request.url === 'http://localhost:1000/auth') {
       return next.handle(request);
     }
 
