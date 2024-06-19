@@ -86,7 +86,7 @@ export class ProductComponent implements OnInit {
         this._loading.hide();
         this._alert.success('Producto eliminado exitosamente')
       },
-      error: (err)=>{
+      error: (err) => {
         this._alert.warning(err.error)
         this._loading.hide();
       }

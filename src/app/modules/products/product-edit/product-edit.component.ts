@@ -10,6 +10,7 @@ import {TrimDirective} from "@app/shared/directives/trim.directive";
 import {InputMaskDirective} from "@app/shared/directives/input-mask/input-mask.directive";
 import {LoadingService} from "@app/core/services/loading.service";
 import {Observable} from "rxjs";
+import {IMAGE_lOGO_EXTENSIONS} from "@app/core/utils/consts";
 
 @Component({
   selector: 'app-product-edit',
@@ -59,9 +60,6 @@ export class ProductEditComponent implements OnInit {
         this.setDataProduct(data);
         this._loading.hide();
         this.images = data.product_image;
-      }, error: () => {
-        this._alert.error("Hubo un problema al intentar traer el producto. :((")
-        this._loading.hide();
       }
     })
   }
@@ -102,12 +100,21 @@ export class ProductEditComponent implements OnInit {
 
   addImage(event: any): void {
     const capturedFile = event.target.files[0];
-    this._product.converterToBase64(capturedFile).subscribe({
-      next: (base64data): void => {
-        this.images = base64data;
-        this._alert.success('Imagen subida correctamente');
-      },
-    });
+
+    const isValidImage = IMAGE_lOGO_EXTENSIONS.some(extension =>
+      extension === capturedFile.type
+    )
+
+    if (isValidImage) {
+      this._product.converterToBase64(capturedFile).subscribe({
+        next: (base64data): void => {
+          this.images = base64data;
+          this._alert.success('Imagen subida correctamente');
+        },
+      });
+    } else {
+      this._alert.warning('Tipo de imágen no soportado');
+    }
   }
 
   deleteImage() {
@@ -116,8 +123,8 @@ export class ProductEditComponent implements OnInit {
   }
 
   sendDataRegisterProduct() {
-    this._loading.show();
     if (this.productForm.valid && this.images) {
+      this._loading.show();
       const dataProduct: any = {
         product_name: this.productForm.get("title")?.value,
         product_price: this.productForm.get("price")?.value,
@@ -142,7 +149,6 @@ export class ProductEditComponent implements OnInit {
           this.data ?
             this._alert.error(error.error.data) : this._alert.error("Hubo un problema al registrar el producto.");
           this._loading.hide();
-
         }
       });
     } else {

@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
     private _alert: AlertService,
     private _auth: AuthService,
     private _storage: StorageService,
-    private _loading : LoadingService
-
+    private _loading: LoadingService
   ) {
 
   }
@@ -64,12 +63,7 @@ export class LoginComponent implements OnInit {
           this._storage.setItem('access_token', data.token);
           this._router.navigateByUrl('administration/product').then();
           this._loading.hide();
-        },
-        error: (err) =>{
-          console.log(err)
-          this._alert.warning(err.error.msn)
-          this._loading.hide();
-        },
+        }
       })
 
     } else {
