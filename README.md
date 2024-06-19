@@ -13,6 +13,11 @@ npm install
 
 Ejecuta `ng serve` para un servidor de desarrollo. Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambias cualquiera de los archivos fuente.
 
+## Iniciar Sesión
+
+Las credenciales de acceso para iniciar sesión son las siguientes:
+`User` : *admin*
+`Contraseña` : *admin*
 
 ## Construcción
 
