@@ -23,4 +23,4 @@ Ejecuta  `ng build`  para construir el proyecto. Los artefactos de construcción
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-## Laura SepÚlveda y Shirley García 2024 I
+## Laura Sepúlveda y Shirley García 2024 I
